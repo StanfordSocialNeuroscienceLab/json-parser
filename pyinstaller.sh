@@ -23,7 +23,7 @@ brew unlink python && brew link python                                          
 packages=("pandas" "numpy" "scikit-learn" "matplotlib" "seaborn")               # Installs several useful Python packages
 
 for k in ${packages[@]}; do
-  pip install $k
+  pip3 install $k
 done
 
 rm install.sh                                                                   # I was never here ...
