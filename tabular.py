@@ -43,21 +43,34 @@ def isoSubjID():
     return ux
 
 
+def isoIter():
+    """
+    Isolates iteration of run to eliminate overwriting CSVs
+    """
+
+    return sys.argv[2]
+
+
 def parseJSON(INCOMING):
     """
-    
+    Loops through keys of JSON and produces CSVs for nested keys
     """
 
     subjID = isoSubjID()                                                # Isolate subject ID
+    iteration = isoIter()                                               # Isolates iteration of run
     outer_keys = list(INCOMING.keys())                                  # Install IDs to loop through
 
     for nest in tqdm(outer_keys):
         temp = INCOMING[nest]                                           # Values / install ID
 
         for key in list(temp.keys()):
-            output_name = "{}-{}-{}.csv".format(subjID, nest, key)      # Formatted output name for CSV
+            output_name = "{}-{}-{}-{}.csv".format(iteration,           # Formatted output name 
+                                                    subjID, 
+                                                    nest, 
+                                                    key)     
             iso = temp[key]                                             # Unnest JSON key
             frame = pd.DataFrame(iso)                                   # Save as DataFrame locally
+
             frame.to_csv("./OUTPUT/{}/{}".format(subjID, output_name), index=False)
 
 
