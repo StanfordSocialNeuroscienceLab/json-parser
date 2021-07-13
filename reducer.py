@@ -14,10 +14,10 @@ Ian Richard Ferguson | Stanford University
 import os
 import json
 import sys
+from tqdm import tqdm
 
 
 # ---------- Setup
-
 def checkCommandLine():
     """
     Confirms End User has entered valid arguments
@@ -107,11 +107,10 @@ def main():
     path = directoryTree(user_value)                                    # Save output path to memory
     
     # In case multiple JSONs are provided...
-    for k in json_list:
-        print("Subsetting {}....".format(k))
+    for k in tqdm(json_list):
         isoUSER(user_value, k, path)
 
-    print("All JSON values parsed - see {} for output".format(path))
+    print("All JSON values parsed - see {} for output\n".format(path))
 
 
 if __name__ == "__main__":
